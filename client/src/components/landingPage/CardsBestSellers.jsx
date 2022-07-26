@@ -12,6 +12,7 @@ import noImage from '../productCard/assets/no-image.jpg';
 import { addProductCarrito } from '../../redux/actions/carritoA';
 import { styled } from '@mui/material/styles';
 import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText('#FFC400'),
@@ -24,6 +25,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 export default function MediaControlCard({ booleano, bestSellers }) {
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     // const [value, setValue] = useState(bestSellers?.averageScore);
     const productsInCarrito = useSelector((state) => state.carrito.productosCarrito);
 
@@ -53,7 +55,7 @@ export default function MediaControlCard({ booleano, bestSellers }) {
                     ? < Card sx={{ display: 'flex', padding: 3, height: '85%' }}>
                         {
                             (bestSellers?.image)
-                                ? <img src={bestSellers?.image} alt='imagenProduct' width='50%' height='70%' style={{ borderRadius: 5, alignSelf: 'center' }} />
+                                ? <img onClick={() => navigate(`/detail/${bestSellers.id}`)} src={bestSellers?.image} alt='imagenProduct' width='50%' height='70%' style={{ cursor: 'pointer', alignSelf: 'center', padding: 13 }} />
                                 : <img src={noImage} alt='imagenProduct' width='50%' height='100%' style={{ borderRadius: 5 }} />
                         }
                         < Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -92,7 +94,7 @@ export default function MediaControlCard({ booleano, bestSellers }) {
                     : < Card sx={{ display: 'flex', padding: 0, height: '100%' }}>
                         {
                             (bestSellers?.image)
-                                ? <img src={bestSellers.image} alt='imagenProduct' width='40%' height='70%' style={{ borderRadius: 5, alignSelf: 'center' }} />
+                                ? <img onClick={() => navigate(`/detail/${bestSellers.id}`)} src={bestSellers.image} alt='imagenProduct' width='40%' height='70%' style={{ borderRadius: 5, alignSelf: 'center', cursor: 'pointer', padding: 13 }} />
                                 : <img src={noImage} alt='imagenProduct' width='40%' height='100%' style={{ borderRadius: 5 }} />
 
                         }

@@ -18,10 +18,14 @@ import ContentEnd from './ContentEnd';
 import { useAuth0 } from '@auth0/auth0-react';
 import { DashboardUsersA } from '../../redux/actions/DashboardUsersA';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { getbrand } from '../../redux/actions/productsA';
+import { getProductByName } from "../../redux/actions/productName";
 
 const images = ['./assets/imagen1.jpg', './assets/imagen3.jpg', './assets/imagen4.jpg'];
 
 export default function BasicGrid() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [responsive, setResponsive] = useState({
         xs: false,
@@ -33,6 +37,20 @@ export default function BasicGrid() {
         if (window.innerWidth < 440) return setResponsive({ xs: true, sm: false, md: false })
         else if (window.innerWidth < 600) return setResponsive({ xs: false, sm: true, md: false })
         else if (window.innerWidth < 900) return setResponsive({ xs: false, sm: false, md: true })
+    }
+
+    const productsAMD = () => {
+        navigate('/products');
+        setTimeout(() => {
+            dispatch(getbrand('AMD'));
+        }, 500);
+    }
+
+    const productsRTX = () => {
+        navigate('/products');
+        setTimeout(() => {
+            dispatch(getProductByName('RTX'));
+        }, 500);
     }
 
     useEffect(() => {
@@ -86,10 +104,14 @@ export default function BasicGrid() {
                     </Grid>
                 </Grid>
                 <Grid item xs={11} sm={5.5}>
-                    <img src='https://www.amd.com/system/files/2020-12/691740-amd-ryzen-radeon-esports-banner-1920x450.jpg' alt='imagen' width='100%' style={{ borderRadius: 7 }} />
+                    <div style={{ cursor: 'pointer' }} onClick={() => productsAMD()}>
+                        <img src='https://www.amd.com/system/files/2020-12/691740-amd-ryzen-radeon-esports-banner-1920x450.jpg' alt='imagen' width='100%' style={{ borderRadius: 7 }} />
+                    </div>
                 </Grid>
                 <Grid item xs={11} sm={5.5}>
-                    <img src='https://www.nvidia.com/content/dam/en-zz/Solutions/events/ces-2022/strip-banner/geforce-ampere-rtx-laptops-learn-gf-strip-1024-t@2x-es-mx.jpg' alt='imagen' width='100%' style={{ borderRadius: 7 }} />
+                    <div style={{ cursor: 'pointer' }} onClick={() => productsRTX()}>
+                        <img src='https://www.nvidia.com/content/dam/en-zz/Solutions/events/ces-2022/strip-banner/geforce-ampere-rtx-laptops-learn-gf-strip-1024-t@2x-es-mx.jpg' alt='imagen' width='100%' style={{ borderRadius: 7 }} />
+                    </div>
                 </Grid>
                 <Grid container justifyContent='center' spacing={2}>
                     <Grid item xs={10.5} sm={9.7} lg={9} xl={8.5} >
