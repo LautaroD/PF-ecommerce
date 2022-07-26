@@ -67,6 +67,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    [theme.breakpoints.up('md')]: {
+        padding: 5
+    },
+    [theme.breakpoints.up('lg')]: {
+        padding: 15
+    },
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -148,6 +154,7 @@ export default function PrimarySearchAppBar() {
         (findedUser?.banned) ? isBanned = true : isBanned = false;
         localStorage.setItem('usuario', JSON.stringify(findedUser));
     }
+
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -371,8 +378,8 @@ export default function PrimarySearchAppBar() {
                 <AppBar position="static" sx={{ bgcolor: '#3a0ca3', paddingTop: 1.5 }}>
                     <Toolbar >
                         <Grid container spacing={2}>
-                            <Grid item xs={3} sm={5} md={1} lg={1} xl={1.5} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'center', display: 'flex' }}></Grid>
-                            <Grid item xs={9} sm={6} md={2} lg={2} xl={1.6} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'center', display: 'flex' }}>
+                            <Grid item xs={3} sm={5} md={0.5} lg={1} xl={1.5} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'center', display: 'flex' }}></Grid>
+                            <Grid item xs={9} sm={6} md={2.5} lg={2} xl={1.6} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'center', display: 'flex' }}>
                                 {/* <IconButton
                         size="large"
                         edge="start"
@@ -396,6 +403,8 @@ export default function PrimarySearchAppBar() {
                                         letterSpacing: '.3rem',
                                         fontSize: 30,
                                         color: '#ced4da',
+                                        position: 'relative',
+                                        top: -5
                                     }}
                                 >
                                     HENTECH
@@ -405,14 +414,14 @@ export default function PrimarySearchAppBar() {
                             <Grid item xs={0} sm={3} md={2} lg={2} xl={1.5} sx={{ color: 'white', fontSize: 13, marginLeft: 7, display: { xs: 'none', sm: 'none', md: 'unset' } }}>
                                 <Link to='/products' style={{ textDecoration: 'none' }}>
                                     <Button key={'products'} >
-                                        <div style={{ color: '#FFC400' }}>
+                                        <div style={{ color: 'white', position: 'relative', top: 4 }}>
                                             Productos
                                         </div>
                                     </Button>
                                 </Link>
                             </Grid>
                             <Grid item xs={0} sm={3.8} md={4} lg={4} xl={4} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'right', display: { xs: 'flex', md: 'none' } }}></Grid>
-                            <Grid item xs={9} sm={6} md={4} lg={4} xl={4} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'right', display: { sm: 'unset' } }}>
+                            <Grid item xs={9} sm={6} md={3.5} lg={3.5} xl={4} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'right', display: { sm: 'unset' } }}>
                                 <Search>
                                     <SearchIconWrapper>
                                         <SearchIcon />
@@ -428,8 +437,8 @@ export default function PrimarySearchAppBar() {
                                 </Search>
                             </Grid>
                             {/* <Box sx={{ flexGrow: 1 }} /> */}
-                            <Grid item xs={0} sm={1} md={2} lg={2} xl={1} sx={{ color: 'white' }}>
-                                <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
+                            <Grid item xs={0} sm={1} md={2.5} lg={2.5} xl={1} sx={{ color: 'white' }}>
+                                <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'stretch' }}>
                                     <Link to='/carrito' style={{ textDecoration: 'none', color: 'inherit' }}>
                                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                             <StyledBadge2 badgeContent={number} color="primary">
@@ -443,7 +452,7 @@ export default function PrimarySearchAppBar() {
                                         color="inherit"
                                     >
                                         <StyledBadge badgeContent={productosFavoritos.length} color="primary">
-                                            <Link to='/favoritos' style={{ textDecoration: 'none', color: 'inherit' }}> <FavoriteIcon sx={{ fontSize: 30, marginBottom: -0.5 }} /> </Link>
+                                            <Link to='/favoritos' style={{ textDecoration: 'none', color: 'inherit' }}> <FavoriteIcon sx={{ fontSize: 30 }} /> </Link>
                                         </StyledBadge>
                                     </IconButton>
                                     {
@@ -458,16 +467,24 @@ export default function PrimarySearchAppBar() {
                                             >
                                                 <AccountCircle sx={{ fontSize: 30 }} />
                                             </IconButton>
-                                            : <IconButton
-                                                size="large"
-                                                aria-label="account of current user"
-                                                aria-controls={menuId}
-                                                aria-haspopup="true"
-                                                onClick={handleProfileMenuOpen}
-                                                color="inherit"
-                                            >
-                                                <AccountCircle sx={{ fontSize: 30 }} />
-                                            </IconButton>}
+                                            : <>
+                                                <IconButton
+                                                    size="large"
+                                                    aria-label="account of current user"
+                                                    aria-controls={menuId}
+                                                    aria-haspopup="true"
+                                                    onClick={handleProfileMenuOpen}
+                                                    color="inherit"
+                                                >
+                                                    <AccountCircle sx={{ fontSize: 30, marginBottom: 0.7 }} />
+                                                </IconButton>
+                                                <div style={{ fontSize: 13, color: '#FFC400', alignSelf: 'center', marginBottom: 3, fontWeight: 'bold' }}>
+                                                    {
+                                                        (JSON.parse(localStorage.getItem('usuario')).name)
+                                                    }
+                                                </div>
+                                            </>
+                                    }
                                 </Box>
                             </Grid>
                             <Grid item xs={1} sm={1} md={6} lg={2} xl={1} sx={{ color: 'white' }}>
